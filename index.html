@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E1 BREW LAB | London</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #121212;
+            --concrete: #2a2a2a;
+            --vapor: #e6e6e6;
+            --timber: #A05A2C;
+        }
+        body {
+            background-color: var(--charcoal);
+            color: var(--vapor);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+        h1, h2, h3, .display-font {
+            font-family: 'Syne', sans-serif;
+        }
+        
+        /* Grain Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.07;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--charcoal);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--concrete);
+        }
+
+        /* Animations */
+        .reveal-text {
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-img-scale {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+        }
+        .group:hover .hover-img-scale {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+        
+        /* Editorial Grid */
+        .editorial-line {
+            width: 1px;
+            background-color: rgba(230, 230, 230, 0.2);
+            height: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        /* Typography Styles */
+        .mega-text {
+            font-size: clamp(4rem, 12vw, 14rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            font-weight: 800;
+            text-transform: uppercase;
+            mix-blend-mode: exclusion;
+        }
+
+        .menu-item {
+            border-bottom: 1px solid rgba(230, 230, 230, 0.1);
+            transition: padding-left 0.3s ease, border-color 0.3s ease;
+        }
+        .menu-item:hover {
+            padding-left: 20px;
+            border-color: var(--timber);
+        }
+        .menu-item:hover .menu-price {
+            color: var(--timber);
+        }
+    </style>
+</head>
+<body class="selection:bg-orange-900 selection:text-white">
+
+    <!-- Noise Texture -->
+    <div class="noise"></div>
+
+    <!-- Vertical Grid Lines (Decorative) -->
+    <div class="fixed inset-0 pointer-events-none z-0 flex justify-between px-4 md:px-20 opacity-30">
+        <div class="w-px h-full bg-white/10"></div>
+        <div class="w-px h-full bg-white/10 hidden md:block"></div>
+        <div class="w-px h-full bg-white/10"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference">
+        <div class="text-sm tracking-widest uppercase font-bold">E1 / LNDN</div>
+        <div class="hidden md:flex gap-12 text-sm tracking-widest uppercase">
+            <a href="#" class="hover:text-gray-400 transition-colors">Space</a>
+            <a href="#" class="hover:text-gray-400 transition-colors">Menu</a>
+            <a href="#" class="hover:text-gray-400 transition-colors">Journal</a>
+        </div>
+        <button class="border border-white/30 px-6 py-2 text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">Book Table</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center z-10">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop" 
+                 class="w-full h-full object-cover opacity-40 grayscale contrast-125" 
+                 alt="Abstract shadow of coffee plant on concrete">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent"></div>
+        </div>
+
+        <div class="z-20 text-center relative w-full px-4">
+            <p class="text-xs md:text-sm uppercase tracking-[0.5em] mb-4 text-gray-400 reveal-text">Est. 2024 — Shoreditch</p>
+            <h1 class="mega-text text-white reveal-text delay-100">
+                RITUAL<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-600">FORM</span>
+            </h1>
+            <div class="mt-12 flex flex-col md:flex-row gap-8 justify-center items-center reveal-text delay-200">
+                <p class="max-w-xs text-sm text-gray-400 leading-relaxed text-left">
+                    We serve precision. A brutalist approach to caffeine in the heart of East London. No syrup. Just chemistry.
+                </p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-6 md:left-20 animate-pulse">
+            <span class="text-[10px] uppercase tracking-widest">Scroll ↓</span>
+        </div>
+    </header>
+
+    <!-- Editorial / Image Overlap Section -->
+    <section class="relative py-32 px-6 md:px-20 z-10 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 relative group">
+                <div class="absolute -inset-4 border border-white/10 z-0 translate-x-4 translate-y-4 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                <div class="overflow-hidden relative z-10 aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2071&auto=format&fit=crop" 
+                         alt="Brutalist Coffee Shop Interior" 
+                         class="w-full h-full object-cover grayscale hover-img-scale">
+                </div>
+            </div>
+            <div class="md:col-span-5 flex flex-col justify-center">
+                <h2 class="text-5xl md:text-7xl mb-8 leading-none font-bold">CONCRETE<br><span class="italic font-light text-gray-500">& BEAN</span></h2>
+                <p class="text-gray-400 leading-relaxed mb-8 font-light">
+                    Our flagship store on Redchurch Street is an ode to industrialism. Stripped back walls, polished concrete, and the rhythmic sound of the La Marzocco KB90. It is not just coffee; it is an interruption to the chaos of the city.
+                </p>
+                <a href="#" class="inline-block text-xs uppercase tracking-[0.2em] border-b border-white pb-1 w-max hover:text-[#A05A2C] hover:border-[#A05A2C] transition-colors">Read Our Philosophy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="py-32 bg-[#161616] relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-[#A05A2C] text-xs font-bold uppercase tracking-widest">Selection</span>
+                <h3 class="text-4xl md:text-6xl mt-4 font-bold">THE BLACK LIST</h3>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Item -->
+                <div class="menu-item flex justify-between items-baseline py-4">
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-medium">Espresso (Double)</h4>
+                        <p class="text-xs text-gray-500 mt-1 font-mono">Single Origin — Ethiopia Guji</p>
+                    </div>
+                    <span class="text-xl font-mono menu-price">£3.20</span>
+                </div>
+                <!-- Item -->
+                <div class="menu-item flex justify-between items-baseline py-4">
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-medium">Flat White</h4>
+                        <p class="text-xs text-gray-500 mt-1 font-mono">Estate Blend — Oat / Dairy</p>
+                    </div>
+                    <span class="text-xl font-mono menu-price">£3.80</span>
+                </div>
+                <!-- Item -->
+                <div class="menu-item flex justify-between items-baseline py-4">
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-medium">Long Black</h4>
+                        <p class="text-xs text-gray-500 mt-1 font-mono">Washed Process — Notes of Jasmine</p>
+                    </div>
+                    <span class="text-xl font-mono menu-price">£3.40</span>
+                </div>
+                <!-- Item -->
+                <div class="menu-item flex justify-between items-baseline py-4">
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-medium">Batch Brew</h4>
+                        <p class="text-xs text-gray-500 mt-1 font-mono">Rotating Daily Selection</p>
+                    </div>
+                    <span class="text-xl font-mono menu-price">£3.00</span>
+                </div>
+                <!-- Item -->
+                <div class="menu-item flex justify-between items-baseline py-4">
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-medium">Cortado</h4>
+                        <p class="text-xs text-gray-500 mt-1 font-mono">1:1 Ratio — Rich & Texture</p>
+                    </div>
+                    <span class="text-xl font-mono menu-price">£3.50</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Marquee / Vibe -->
+    <section class="w-full overflow-hidden py-20">
+        <div class="flex gap-4 w-[200%] animate-marquee opacity-80">
+             <!-- Using placeholder divs for marquee effect to represent gallery -->
+            <div class="w-64 h-80 md:w-96 md:h-[30rem] flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-700">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover" alt="Latte Art">
+            </div>
+            <div class="w-64 h-80 md:w-96 md:h-[30rem] flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-700">
+                 <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover" alt="Coffee Beans">
+            </div>
+            <div class="w-64 h-80 md:w-96 md:h-[30rem] flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-700">
+                 <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?q=80&w=1964&auto=format&fit=crop" class="w-full h-full object-cover" alt="Barista Pouring">
+            </div>
+             <div class="w-64 h-80 md:w-96 md:h-[30rem] flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-700">
+                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1937&auto=format&fit=crop" class="w-full h-full object-cover" alt="Shop Interior">
+            </div>
+        </div>
+    </section>
+
+    <!-- Find Us Section -->
+    <section class="py-32 px-6 md:px-20 border-t border-white/10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+                <h2 class="text-6xl md:text-8xl font-bold uppercase mb-12">Find<br>Us</h2>
+                <div class="space-y-8 text-lg font-light">
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Location</p>
+                        <p>142 Bethnal Green Rd,<br>London E2 6DG</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Hours</p>
+                        <p>Mon - Fri: 07:00 — 18:00<br>Sat - Sun: 09:00 — 17:00</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Contact</p>
+                        <a href="mailto:hello@e1brew.com" class="hover:text-[#A05A2C] transition-colors">hello@e1brew.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative h-[500px] bg-[#222] overflow-hidden group">
+                <!-- Stylized Map Representation -->
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop" 
+                     class="w-full h-full object-cover grayscale opacity-50 group-hover:scale-105 transition-transform duration-700" 
+                     alt="London Street Texture">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="bg-white text-black px-8 py-4 uppercase font-bold tracking-widest text-xs hover:bg-[#A05A2C] hover:text-white transition-colors cursor-pointer">
+                        Open Map
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 md:px-20 flex flex-col md:flex-row justify-between items-end border-t border-white/5 text-gray-600 text-xs uppercase tracking-widest">
+        <div class="mb-4 md:mb-0">
+            © 2024 E1 Brew Lab.<br>All rights reserved.
+        </div>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            <a href="#" class="hover:text-white transition-colors">Twitter</a>
+        </div>
+    </footer>
+
+
+<script>
+  let inspectorMode = false;
+  let hoveredElement = null;
+  let selectedElement = null;
+  
+  window.addEventListener('message', (event) => {
+    if (event.data?.type === 'SET_INSPECTOR_MODE') {
+      inspectorMode = event.data.enabled;
+      document.body.style.cursor = inspectorMode ? 'crosshair' : 'default';
+    }
+    
+    if (event.data?.type === 'LOCAL_UPDATE' && selectedElement) {
+      const update = event.data.update;
+      
+      if (update.text !== undefined) {
+        selectedElement.innerText = update.text;
+      }
+      
+      if (update.styles) {
+        Object.entries(update.styles).forEach(([prop, value]) => {
+          selectedElement.style[prop] = value;
+        });
+      }
+    }
+  });
+  
+  document.addEventListener('mouseover', (e) => {
+    if (!inspectorMode) return;
+    if (hoveredElement && hoveredElement !== selectedElement) {
+      hoveredElement.style.outline = '';
+    }
+    hoveredElement = e.target;
+    if (hoveredElement !== selectedElement) {
+      hoveredElement.style.outline = '2px solid #06b6d4';
+    }
+  });
+  
+  document.addEventListener('mouseout', (e) => {
+    if (!inspectorMode || !hoveredElement) return;
+    if (hoveredElement !== selectedElement) {
+      hoveredElement.style.outline = '';
+    }
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!inspectorMode) return;
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (selectedElement) {
+      selectedElement.style.outline = '';
+    }
+    
+    const el = e.target;
+    selectedElement = el;
+    el.style.outline = '3px solid #06b6d4';
+    
+    const rect = el.getBoundingClientRect();
+    const styles = window.getComputedStyle(el);
+    
+    window.parent.postMessage({
+      type: 'ELEMENT_SELECTED',
+      element: {
+        tagName: el.tagName.toLowerCase(),
+        text: el.innerText?.substring(0, 500) || '',
+        className: el.className || '',
+        styles: {
+          color: styles.color,
+          backgroundColor: styles.backgroundColor,
+          fontSize: styles.fontSize,
+          fontWeight: styles.fontWeight,
+          padding: styles.padding,
+          margin: styles.margin,
+        },
+        rect: {
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height,
+        },
+        selector: el.id ? '#' + el.id : (el.className ? '.' + el.className.split(' ')[0] : el.tagName.toLowerCase())
+      }
+    }, '*');
+  }, true);
+</script>
+</body>
+</html>
